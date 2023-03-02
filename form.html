@@ -7,13 +7,42 @@
     <title>Document</title>
 </head>
     <body>
-        <form action="#" OnSubmit="localstorage(event)">
-            <lable for="fname">FirstName:</lable><br>
-            <input type="text" id="fname" name="fname" ><br>
-            <lable for="iname">LastName:</lable><br>
-            <input type="text" id="Lname" name="iname"><br><br>
-            <input type="submit" value="Submit">
+        <form Onsubmit="saveToLocalStorage(event)">
+            <lable>Name:</lable>
+            <input type="text" id="username" required/>
+            <lable >Email:</lable>
+            <input type="email" id="emailid" required/>
+            <lable>PhNum:</lable>
+            <input type="tel" name="phoneNum">
+            <button>Submit</button>>
         </form>
-        <script src="form.js"></script>
+        <ul id='listOfitems'></ul>
+        <script >
+            function saveToLocalStorage(event){
+                event.preventDefault();
+                const name=event.target.username.value;
+                const email=event.target.emailid.value;
+                const phNum=event.target.phoneNum.value;
+                //localStorage.setItem('Name',name)
+                //localStorage.setItem('Email',lastname)
+                //localStorage.setItem('phoneNum',phNum)
+                const obj={
+                    name,
+                    email,
+                    phNum
+                }
+                localStorage.setItem(obj.email,JSON.stringify(obj))
+                showUserOnScreen(obj)
+            }
+
+                function showUserOnScreen(obj){
+                    const parentElem=document.getElementById('listOfitems')
+                    //parentElem.innerHTML=`<li>${obj.name} - ${obj.email} - ${obj.phNum} </li>`
+                    const childElem=document.createElement('li')
+                    childElem.textContent=obj.name+obj.email+obj.phNum
+                    parentElem.appendChild(childElem)
+                    
+                }
+            </script>
     </body>
 </html>
